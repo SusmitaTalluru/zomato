@@ -1,0 +1,59 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 offset-sm-4">
+      <div class="input-group mb-3 px-3 py-3 pt-md-3 pb-md-3 mx-auto text-center">
+        <input type="text" [(ngModel)]="city" class="form-control" placeholder="City" (keydown)="search($event)"
+          aria-label="City" aria-describedby="basic-addon1">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-6 offset-sm-3 text-center">
+      <div class="alert alert-danger" role="alert" *ngIf="isLocationEmpty">
+        Please recheck the city name. It is either not served by Zomato or the spelling might be incorrect.
+      </div>
+      <div class="alert alert-light" role="alert" *ngFor="let city of locArray">
+        <div *ngIf="!hideCityTitle">
+          To know the TOP 3 restaurants in
+          <a (click)="getLocDetails(city)" class="alert-link">{{city.title}}</a>. Click on the city name.
+        </div>
+        <div *ngIf="hideCityTitle">
+          Top cuisines in {{city.title}}
+          <div class="padding-top-16">
+            <span class="badge badge-pill badge-primary cuisine-style" *ngFor="let cuisine of topCuisines">
+              {{cuisine}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <div class="card-deck mb-4 text-center">
+      <div class="card mb-4 shadow-sm" *ngFor="let best of bestRatedRestaurants">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">{{best.name}}</h4>
+        </div>
+        <div class="card-body" *ngIf="!best.flipped">
+          <img src={{best.featured_image}} class="img-thumbnail">
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)="flip(best)">Know More</button>
+        </div>
+        <div class="card-body" *ngIf="best.flipped">
+          <h1 class="card-title pricing-card-title">{{best.currency}}{{best.average_cost_for_two}}
+            <small class="text-muted">/ 2 people</small>
+          </h1>
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Serves {{best.cuisines}}</li>
+            <li>Average user rating is {{best.user_rating.aggregate_rating}}</li>
+            <li *ngIf="best.has_online_delivery === 1">Online delivery available</li>
+            <li *ngIf="best.is_table_reservation_supported === 1">Table reservation available</li>
+          </ul>
+          <button type="button" class="btn btn-lg btn-block btn-outline-primary" (click)="flip(best)">Back</button>
+        </div>
+      </div>
+    </div>
+</div>
+

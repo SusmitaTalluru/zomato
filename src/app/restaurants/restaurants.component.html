@@ -1,0 +1,92 @@
+<ng-container *ngIf="restaurant_details | async as myData">
+    <app-header></app-header>
+      <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <img src="{{myData.featured_image}}">
+       
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-4" style="float: left;">
+            <h4><strong>{{myData.name}}</strong></h4>
+            <h5> {{myData.location.locality_verbose}} </h5>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 rate" style="float: right;text-align:center; background:#5BA829;">
+            <div class="rating">
+              <h4><strong>{{myData.user_rating.aggregate_rating}}/5</strong></h4>
+              <p>{{myData.user_rating.votes}} votes</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h4><strong>Average Cost </strong></h4>
+            <h5> {{myData.currency}}{{myData.average_cost_for_two}} </h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h4><strong>Cuisines</strong></h4>
+            <h5> {{myData.cuisines}} </h5>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-6 services">
+        <div class="row">
+          <div class="col-lg-8 col-md-8 col-sm-8">
+            <h4><strong>Services</strong></h4>
+            <ul class="horizontal">
+              <li>
+                <ul id='menu'>
+                  <li>Online Delivery {{myData.has_online_delivery}}</li>
+                </ul>
+              </li>
+              <li>
+                <ul id="menu">
+                  <li>Table Reservation {{myData.is_table_reservation_supported}}</li>
+                </ul>
+              </li>
+              <li>
+                <ul id="menu">
+                  <li>Open air Dining {{myData.opentable_support}}</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <h4><strong>Reviews</strong></h4>
+            <ng-container *ngIf="restaurant_reviews | async as myData2">
+              <div class="row">
+                <div class="col-lg-11 col-md-11 col-sm-11" *ngFor="let m of myData2.user_reviews">
+                  <div class="border1">
+                    <div class="well">
+                      {{m.review.review_text}}
+                      <div style="float: right">
+                        <u>{{m.review.review_time_friendly}}</u>
+                      </div>
+                    </div>
+                    <div class="row reviewDetails">
+                      <div class="col-lg-6 col-md-6 col-sm-6 reviewRating">
+                        <i class="fa fa-heart" style="color: red; padding-left: 2px;"></i>
+                        {{m.review.rating}}
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6 reviewName">
+                        {{m.review.user.name}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</ng-container>

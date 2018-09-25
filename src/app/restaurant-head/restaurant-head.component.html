@@ -1,0 +1,23 @@
+<app-header></app-header>
+
+<!--<div *ngFor = "let k of  resName?.nearby_restaurants">-->
+
+<div class="container">
+    <h2 class="text-center">Restaurants Near You</h2>
+    <div class="row">
+        
+            <div class="card text-center col-lg-4 col-sm-6 shadow-sm" *ngFor="let k of restList | async" style="cursor: pointer;" (click) = "onClick(k)" routerLink="/restaurant/details">
+                <div class="card text-center mt-5">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">{{k.restaurant.name}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src={{k.restaurant.featured_image}} class="img-thumbnail">
+                        <button type="button" class="btn btn-lg btn-block btn-outline-primary">Know More</button>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+</div>
+<hr>

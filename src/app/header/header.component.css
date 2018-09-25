@@ -1,0 +1,13 @@
+.jumbotron {
+    background: linear-gradient(
+        rgba(10,10,10, .3), 
+        rgba(10,10,10, .3)),
+        url('../../assets/images/bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding-top: 5%;
+    padding-bottom: 15%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
